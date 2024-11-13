@@ -1,0 +1,19 @@
+<div>
+  <p>todo list component</p>
+  @for (task of todolist; track $index) {
+  <div class="flex justify-between gap-1 px-8 md:px-16 lg:px-24">
+    <p>{{ task.task }}</p>
+    <div>
+      <button class="cursor-pointer">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button class="cursor-pointer">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button class="cursor-pointer">
+        <mat-icon> check_circle</mat-icon>
+      </button>
+    </div>
+  </div>
+  }
+</div>
