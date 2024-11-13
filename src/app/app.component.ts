@@ -14,6 +14,7 @@ export class AppComponent {
   title = 'todolist';
   //array of to contain all the tasks
   allTasks: Task[] = [];
+  completedTasks: string[] = [];
 
   addTask(taskInput: HTMLInputElement) {
     const newTask: Task = {
@@ -22,7 +23,19 @@ export class AppComponent {
       isCompleted: false,
     };
     this.allTasks.push(newTask);
-    console.log(this.allTasks);
+    // console.log(this.allTasks);
     taskInput.value = '';
+  }
+  deleteTask(id: string) {
+    // console.log(id);
+    this.allTasks = this.allTasks.filter((task) => task.id !== id);
+  }
+  completeTask(id: string) {
+    const completedTask = this.allTasks.find((task) => task.id === id);
+    // console.log(completedTask);
+    if (completedTask) {
+      this.completedTasks.push(completedTask.task);
+      this.deleteTask(id);
+    }
   }
 }

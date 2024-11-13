@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Task } from '../interfaces/interface';
 @Component({
@@ -11,4 +11,22 @@ import { Task } from '../interfaces/interface';
 export class TodolistComponent {
   //defining an input variable to accept the todolist from the app.component
   @Input() todolist: Task[] = [];
+
+  //output events variables to send data to the parent(app)
+  @Output() deleteTaskEvent = new EventEmitter();
+  @Output() completeTaskEvent = new EventEmitter();
+
+  //delete task method
+  deleteTask(id: string) {
+    // console.log(id);
+    //passing the id to the parent(app) component
+    this.deleteTaskEvent.emit(id);
+  }
+
+  //complete task method
+  completeTask(id: string) {
+    // console.log(id);
+    //passing the id to the parent(app) component
+    this.completeTaskEvent.emit(id);
+  }
 }

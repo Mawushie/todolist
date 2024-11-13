@@ -1,5 +1,5 @@
 <div class="bg-emerald-200 p-6">
-  <h1 class="text-center p-3 mb-4 font-bold text-3xl">ToDo List!</h1>
+  <h1 class="text-center p-3 mb-4">ToDo List!</h1>
 
   <!--using a template reference variable to get the input element-->
   <div class="flex justify-center gap-1 mb-10">
@@ -18,6 +18,17 @@
   </div>
 
   <!--displaying all the todolists from the TodoListComponent-->
+  <!--using event binding to listen to the deleteTaskEvent and completeTaskEvent that we defined in our TodoListComponent-->
+  <app-todolist
+    [todolist]="allTasks"
+    (deleteTaskEvent)="deleteTask($event)"
+    (completeTaskEvent)="completeTask($event)"
+  ></app-todolist>
 
-  <app-todolist [todolist]="allTasks"></app-todolist>
+  <div>
+    <h5>Completed Tasks</h5>
+    @for (task of completedTasks; track $index) {
+    <p>{{ task }}</p>
+    }
+  </div>
 </div>
