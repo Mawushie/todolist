@@ -1,34 +1,40 @@
-<div class="bg-emerald-200 p-6">
-  <h1 class="text-center p-3 mb-4">ToDo List!</h1>
+<div class="p-6">
+  <h1 class="text-center text-emerald-500 p-3 mb-4 text-xl">ToDo List!</h1>
 
   <!--using a template reference variable to get the input element-->
-  <div class="flex justify-center gap-1 mb-10">
+  <div class="flex justify-center items-center gap-1 mb-10">
     <input
       type="text"
       class="w-2/3 border rounded p-2"
       placeholder="Add task"
       #taskInput
+      (keyup.enter)="addTask(taskInput)"
     />
-    <button
-      class="border rounded p-2 bg-gray-300 cursor-pointer"
+
+    <div
+      class="border rounded flex p-2 bg-gray-300 cursor-pointer"
       (click)="addTask(taskInput)"
     >
-      Add
-    </button>
+      <mat-icon> add</mat-icon>
+    </div>
   </div>
 
   <!--displaying all the todolists from the TodoListComponent-->
   <!--using event binding to listen to the deleteTaskEvent and completeTaskEvent that we defined in our TodoListComponent-->
   <app-todolist
     [todolist]="allTasks"
+    (editTaskEvent)="editTask($event)"
     (deleteTaskEvent)="deleteTask($event)"
     (completeTaskEvent)="completeTask($event)"
   ></app-todolist>
 
-  <div>
-    <h5>Completed Tasks</h5>
+  <!--conditionally display this only when completed tasks is not empty-->
+  @if (completedTasks.length > 0) {
+  <div class="mt-16 text-center">
+    <h5 class="text-emerald-500">Completed!!!🥳🎉</h5>
     @for (task of completedTasks; track $index) {
     <p>{{ task }}</p>
     }
   </div>
+  }
 </div>

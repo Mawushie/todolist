@@ -1,9 +1,10 @@
 <div>
   @for (task of todolist; track $index) {
-  <div class="flex justify-between gap-1 px-8 md:px-16 lg:px-24">
-    <p>{{ task.task }}</p>
-    <div>
-      <button class="cursor-pointer">
+  <div class="flex justify-between gap-1 md:px-16 lg:px-24">
+    <input type="text" />
+    <p class="w-2/3 break-words">{{ task.task }}</p>
+    <div class="flex">
+      <button class="cursor-pointer" (click)="editTask(task.task)">
         <mat-icon>edit</mat-icon>
       </button>
       <button class="cursor-pointer" (click)="deleteTask(task.id)">

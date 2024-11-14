@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 import { TodolistComponent } from './todolist/todolist.component';
 import { Task } from './interfaces/interface';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [TodolistComponent],
+  imports: [TodolistComponent, MatIconModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -26,6 +27,11 @@ export class AppComponent {
     // console.log(this.allTasks);
     taskInput.value = '';
   }
+
+  editTask(id: string) {
+    console.log(id);
+  }
+
   deleteTask(id: string) {
     // console.log(id);
     this.allTasks = this.allTasks.filter((task) => task.id !== id);

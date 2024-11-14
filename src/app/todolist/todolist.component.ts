@@ -9,12 +9,20 @@ import { Task } from '../interfaces/interface';
   styleUrl: './todolist.component.css',
 })
 export class TodolistComponent {
+  edit: boolean = false;
   //defining an input variable to accept the todolist from the app.component
   @Input() todolist: Task[] = [];
 
   //output events variables to send data to the parent(app)
+  @Output() editTaskEvent = new EventEmitter();
   @Output() deleteTaskEvent = new EventEmitter();
   @Output() completeTaskEvent = new EventEmitter();
+
+  //edit task method
+  editTask(id: string) {
+    this.edit = true;
+    this.editTaskEvent.emit(id);
+  }
 
   //delete task method
   deleteTask(id: string) {
