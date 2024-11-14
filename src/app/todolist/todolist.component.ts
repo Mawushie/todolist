@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Task } from '../interfaces/interface';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-todolist',
   standalone: true,
-  imports: [MatIconModule],
+  imports: [MatIconModule, FormsModule],
   templateUrl: './todolist.component.html',
   styleUrl: './todolist.component.css',
 })
@@ -20,8 +21,13 @@ export class TodolistComponent {
 
   //edit task method
   editTask(id: string) {
-    this.edit = true;
+    // this.edit = true;
     this.editTaskEvent.emit(id);
+  }
+
+  //save editedTask
+  saveEditedTask(task: Task) {
+    task.isEdited = false;
   }
 
   //delete task method

@@ -21,7 +21,7 @@ export class AppComponent {
     const newTask: Task = {
       id: uuidv4(),
       task: taskInput.value,
-      isCompleted: false,
+      isEdited: false,
     };
     this.allTasks.push(newTask);
     // console.log(this.allTasks);
@@ -29,7 +29,11 @@ export class AppComponent {
   }
 
   editTask(id: string) {
-    console.log(id);
+    // console.log(id);
+    const currentEdit = this.allTasks.find((task) => task.id === id);
+    if (currentEdit) {
+      currentEdit.isEdited = true;
+    }
   }
 
   deleteTask(id: string) {

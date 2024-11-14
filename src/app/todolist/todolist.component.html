@@ -1,10 +1,19 @@
 <div>
   @for (task of todolist; track $index) {
   <div class="flex justify-between gap-1 md:px-16 lg:px-24">
-    <input type="text" />
+    @if (task.isEdited) {
+    <input
+      type="text"
+      class="w-2/3 border rounded p-2"
+      [(ngModel)]="task.task"
+      (keyup.enter)="saveEditedTask(task)"
+    />
+    }@else {
     <p class="w-2/3 break-words">{{ task.task }}</p>
+    }
+
     <div class="flex">
-      <button class="cursor-pointer" (click)="editTask(task.task)">
+      <button class="cursor-pointer" (click)="editTask(task.id)">
         <mat-icon>edit</mat-icon>
       </button>
       <button class="cursor-pointer" (click)="deleteTask(task.id)">
