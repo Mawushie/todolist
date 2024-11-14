@@ -16,16 +16,23 @@ export class AppComponent {
   //array of to contain all the tasks
   allTasks: Task[] = [];
   completedTasks: string[] = [];
-
+  //error handling for empty input
+  inputError: boolean = false;
   addTask(taskInput: HTMLInputElement) {
-    const newTask: Task = {
-      id: uuidv4(),
-      task: taskInput.value,
-      isEdited: false,
-    };
-    this.allTasks.push(newTask);
-    // console.log(this.allTasks);
-    taskInput.value = '';
+    if (taskInput.value === '') {
+      this.inputError = true;
+      // console.log('empty input');
+      return;
+    } else {
+      const newTask: Task = {
+        id: uuidv4(),
+        task: taskInput.value,
+        isEdited: false,
+      };
+      this.allTasks.push(newTask);
+      // console.log(this.allTasks);
+      taskInput.value = '';
+    }
   }
 
   editTask(id: string) {

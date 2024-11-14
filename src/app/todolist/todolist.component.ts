@@ -10,9 +10,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './todolist.component.css',
 })
 export class TodolistComponent {
-  edit: boolean = false;
   //defining an input variable to accept the todolist from the app.component
-  @Input() todolist: Task[] = [];
+  @Input() todoList: Task[] = [];
 
   //output events variables to send data to the parent(app)
   @Output() editTaskEvent = new EventEmitter();
@@ -21,7 +20,6 @@ export class TodolistComponent {
 
   //edit task method
   editTask(id: string) {
-    // this.edit = true;
     this.editTaskEvent.emit(id);
   }
 

@@ -19,10 +19,14 @@
     </div>
   </div>
 
+  @if (allTasks.length === 0 && completedTasks.length === 0) {
+  <p class="text-center text-gray-400">No tasks created yet</p>
+  }
+
   <!--displaying all the todolists from the TodoListComponent-->
   <!--using event binding to listen to the deleteTaskEvent and completeTaskEvent that we defined in our TodoListComponent-->
   <app-todolist
-    [todolist]="allTasks"
+    [todoList]="allTasks"
     (editTaskEvent)="editTask($event)"
     (deleteTaskEvent)="deleteTask($event)"
     (completeTaskEvent)="completeTask($event)"
