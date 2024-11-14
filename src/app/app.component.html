@@ -2,6 +2,10 @@
   <h1 class="text-center text-emerald-500 p-3 mb-4 text-xl">ToDo List!</h1>
 
   <!--using a template reference variable to get the input element-->
+  @if(inputError){
+  <p class="flex justify-center text-red-600">Please enter a task</p>
+  }
+
   <div class="flex justify-center items-center gap-1 mb-10">
     <input
       type="text"

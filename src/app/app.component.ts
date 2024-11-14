@@ -24,6 +24,7 @@ export class AppComponent {
       // console.log('empty input');
       return;
     } else {
+      this.inputError = false;
       const newTask: Task = {
         id: uuidv4(),
         task: taskInput.value,
