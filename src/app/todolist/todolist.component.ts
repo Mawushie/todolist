@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Task } from '../interfaces/interface';
+import { Task } from '../interfaces/Task.model';
 import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-todolist',

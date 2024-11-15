@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 import { TodolistComponent } from './todolist/todolist.component';
-import { Task } from './interfaces/interface';
+import { Task } from './interfaces/Task.model';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
