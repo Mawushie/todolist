@@ -43,8 +43,10 @@
   <div>
     @if (allTasks.length === 0 && completedTasks.length === 0) {
     <p class="text-center text-gray-400">No tasks created yet</p>
+    } @else if (pendingTasks.length === 0 && completedTasks.length !== 0) {
+    <p class="text-center text-gray-400">No pending tasks</p>
     } @else {
-    <div class="grid grid-cols-3 justify-between">
+    <div class="grid grid-cols-3 justify-between text-emerald-500">
       <h6 class="text-center">Task</h6>
       <h6 class="text-center">Due Date</h6>
       <h6 class="text-center">Actions</h6>
@@ -53,7 +55,7 @@
     <!--displaying all the todolists from the TodoListComponent-->
     <!--using event binding to listen to the deleteTaskEvent and completeTaskEvent that we defined in our TodoListComponent-->
     <app-todolist
-      [todoList]="allTasks"
+      [todoList]="pendingTasks"
       (editTaskEvent)="editTask($event)"
       (deleteTaskEvent)="deleteTask($event)"
       (completeTaskEvent)="completeTask($event)"
@@ -65,7 +67,7 @@
   <div class="mt-16 text-center">
     <h5 class="text-emerald-500">Completed!!!🥳🎉</h5>
     @for (task of completedTasks; track $index) {
-    <p>{{ task }}</p>
+    <p>{{ task.task }}</p>
     }
   </div>
   }
