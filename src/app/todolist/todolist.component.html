@@ -1,28 +1,33 @@
-<div>
-  @for (task of todoList; track $index) {
-  <div class="flex justify-between gap-1 md:px-16 lg:px-24">
-    @if (task.isEdited) {
-    <input
-      type="text"
-      class="w-2/3 border rounded p-2"
-      [(ngModel)]="task.task"
-      (keyup.enter)="saveEditedTask(task)"
-    />
-    }@else {
-    <p class="w-2/3 break-words">{{ task.task }}</p>
-    }
+@for (task of todoList; track $index) {
+<div class="grid grid-cols-3 justify-between">
+  @if (task.isEdited) {
+  <input
+    type="text"
+    class="w-2/3 border rounded p-2"
+    [(ngModel)]="task.task"
+    (keyup.enter)="saveEditedTask(task)"
+  />
+  }@else {
 
-    <div class="flex">
-      <button class="cursor-pointer" (click)="editTask(task.id)">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button class="cursor-pointer" (click)="deleteTask(task.id)">
-        <mat-icon>delete</mat-icon>
-      </button>
-      <button class="cursor-pointer" (click)="completeTask(task.id)">
-        <mat-icon> check_circle</mat-icon>
-      </button>
-    </div>
-  </div>
+  <p class="break-words text-center">{{ task.task }}</p>
   }
+  <!--implementing the date pipe here-->
+  @if (task.due === '') {
+  <p class="text-gray-500 text-center">no due date</p>
+  } @else {
+  <p class="text-center">{{ task.due | date }}</p>
+  }
+
+  <div class="flex justify-center items-baseline">
+    <button class="cursor-pointer" (click)="editTask(task.id)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button class="cursor-pointer" (click)="deleteTask(task.id)">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button class="cursor-pointer" (click)="completeTask(task.id)">
+      <mat-icon> check_circle</mat-icon>
+    </button>
+  </div>
 </div>
+}

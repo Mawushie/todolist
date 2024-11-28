@@ -2,14 +2,16 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Task } from '../interfaces/Task.model';
 import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-todolist',
   standalone: true,
-  imports: [MatIconModule, FormsModule],
+  imports: [MatIconModule, FormsModule, DatePipe],
   templateUrl: './todolist.component.html',
   styleUrl: './todolist.component.css',
 })
 export class TodolistComponent {
+  today = new Date();
   //defining an input variable to accept the todolist from the app.component
   @Input() todoList: Task[] = [];
 
