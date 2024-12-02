@@ -55,7 +55,7 @@ export class AppComponent {
       };
       this.pendingTasks.push(newTask);
       this.allTasks = [...this.pendingTasks, ...this.completedTasks];
-      console.log(this.allTasks);
+      // console.log(this.allTasks);
       taskInput.value = '';
     }
   }

@@ -3,10 +3,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { Task } from '../interfaces/Task.model';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { HighlightOverduePipe } from '../pipes/highlight-overdue.pipe';
 @Component({
   selector: 'app-todolist',
   standalone: true,
-  imports: [MatIconModule, FormsModule, DatePipe],
+  imports: [MatIconModule, FormsModule, DatePipe, HighlightOverduePipe],
   templateUrl: './todolist.component.html',
   styleUrl: './todolist.component.css',
 })

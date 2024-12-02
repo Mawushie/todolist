@@ -1,5 +1,5 @@
 @for (task of todoList; track $index) {
-<div class="grid grid-cols-3 justify-between">
+<div class="grid grid-cols-3 justify-between" [class.overdue]="task | overdue">
   @if (task.isEdited) {
   <input
     type="text"
@@ -9,7 +9,11 @@
   />
   }@else {
 
-  <p class="break-words text-center">{{ task.task }}</p>
+  <!--highlight text when overdue-->
+
+  <p class="break-words text-center">
+    {{ task.task }}
+  </p>
   }
   <!--implementing the date pipe here-->
   @if (task.due === '') {
