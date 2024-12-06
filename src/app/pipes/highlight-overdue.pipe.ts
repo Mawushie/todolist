@@ -11,7 +11,7 @@ export class HighlightOverduePipe implements PipeTransform {
     today.setHours(0, 0, 0, 0);
     let dueDate = new Date(task.due);
     dueDate.setHours(0, 0, 0, 0);
-    console.log(today, dueDate);
+    // console.log(today, dueDate);
     return today > dueDate ? 'overdue' : ''; //this will return true if task is overdue
   }
 }
