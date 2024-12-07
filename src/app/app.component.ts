@@ -71,6 +71,8 @@ export class AppComponent {
   deleteTask(id: string) {
     console.log(id);
     this.taskService.deleteTaskService(id);
+    // this.taskService.getTasksService();
+    this.pendingTasks = this.taskService.getTasksService();
   }
 
   completeTask(id: string) {

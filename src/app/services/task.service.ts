@@ -31,6 +31,5 @@ export class TaskService {
   deleteTaskService(id: string) {
     this.pendingTasks = this.pendingTasks.filter((task) => task.id !== id);
     console.log(this.pendingTasks);
-    console.log(id);
   }
 }
