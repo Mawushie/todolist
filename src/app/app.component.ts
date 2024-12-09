@@ -61,30 +61,18 @@ export class AppComponent {
   }
 
   editTask(id: string) {
-    console.log(id);
-    // const currentEdit = this.pendingTasks.find((task) => task.id === id);
-    // if (currentEdit) {
-    //   currentEdit.isEdited = true;
-    // }
+    this.taskService.editTaskServe(id);
   }
 
   deleteTask(id: string) {
-    console.log(id);
     this.taskService.deleteTaskService(id);
-    // this.taskService.getTasksService();
     this.pendingTasks = this.taskService.getTasksService();
   }
 
   completeTask(id: string) {
-    console.log(id);
-    // const completedTask = this.pendingTasks.find((task) => task.id === id);
-    // // console.log(completedTask);
-    // if (completedTask) {
-    //   this.completedTasks.push(completedTask);
-    //   this.deleteTask(id);
-    //   this.allTasks = [...this.pendingTasks, ...this.completedTasks];
-    // }
-    // console.log(this.allTasks);
+    this.taskService.completeTaskService(id);
+    this.pendingTasks = this.taskService.getTasksService();
+    this.completedTasks = this.taskService.completedTasks;
   }
   constructor(
     //taskService is the variable name to inject the TaskService

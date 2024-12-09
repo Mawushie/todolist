@@ -1,4 +1,5 @@
 @for (task of todoList; track $index) {
+<!--highlight text when overdue-->
 <div class="grid grid-cols-3 justify-between" [class.overdue]="task | overdue">
   @if (task.isEdited) {
   <input
@@ -8,9 +9,6 @@
     (keyup.enter)="saveEditedTask(task)"
   />
   }@else {
-
-  <!--highlight text when overdue-->
-
   <p class="break-words text-center">
     {{ task.task }}
   </p>
