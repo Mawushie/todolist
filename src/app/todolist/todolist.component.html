@@ -12,9 +12,7 @@
   <p class="break-words text-center">
     {{ task.task }}
   </p>
-  }
-  <!--implementing the date pipe here-->
-  @if (task.due === '') {
+  } @if (task.due === ''|| task.due === null) {
   <p class="text-gray-500 text-center">no due date</p>
   } @else {
   <p class="text-center">{{ task.due | date }}</p>

@@ -45,15 +45,14 @@ export class TaskService {
 
   //complete task funtion
   completeTaskService(id: string) {
-    console.log(id);
     const completedTask = this.pendingTasks.find((task) => task.id === id);
     // console.log(completedTask);
     if (completedTask) {
       this.completedTasks.push(completedTask);
       this.deleteTaskService(id);
-      console.log('Pending Tasks: ', this.pendingTasks);
+      // console.log('Pending Tasks: ', this.pendingTasks);
       this.allTasks = [...this.pendingTasks, ...this.completedTasks];
     }
-    console.log('All Tasks: ', this.allTasks);
+    // console.log('All Tasks: ', this.allTasks);
   }
 }

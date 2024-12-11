@@ -10,6 +10,7 @@ import {
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { TaskService } from './services/task.service';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ import { TaskService } from './services/task.service';
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
+    FormsModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -30,34 +32,20 @@ export class AppComponent {
   pendingTasks: Task[] = [];
   completedTasks: Task[] = [];
   allTasks: Task[] = [];
-  today = new Date();
-  dueDate: string = '';
+  today = new Date(); //to allow for due dates from today
 
-  //function to get due date value
-  getDueDate(event: MatDatepickerInputEvent<any, any>) {
-    // console.log(event.value);
-    this.dueDate = event.value;
-  }
-
-  //error handling for empty input
-  inputError: boolean = false;
-  addTask(taskInput: HTMLInputElement) {
-    if (taskInput.value === '') {
-      this.inputError = true;
-      // console.log('empty input');
-      return;
-    } else {
-      this.inputError = false;
-      const newTask: Task = {
-        id: uuidv4(),
-        task: taskInput.value,
-        isEdited: false,
-        due: this.dueDate,
-      };
-      //add the new task through the task service
-      this.taskService.addTaskService(newTask);
-      taskInput.value = '';
-    }
+  addTask(form: NgForm) {
+    const { task, dueDate } = form.value;
+    console.log(dueDate);
+    const newTask: Task = {
+      id: uuidv4(),
+      task: task,
+      isEdited: false,
+      due: dueDate,
+    };
+    //add the new task through the task service
+    this.taskService.addTaskService(newTask);
+    form.reset();
   }
 
   editTask(id: string) {
@@ -74,6 +62,7 @@ export class AppComponent {
     this.pendingTasks = this.taskService.getTasksService();
     this.completedTasks = this.taskService.completedTasks;
   }
+
   constructor(
     //taskService is the variable name to inject the TaskService
     private taskService: TaskService

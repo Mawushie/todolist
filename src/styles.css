@@ -36,3 +36,7 @@ mat-form-field {
 .overdue {
   color: red;
 }
+
+input.ng-invalid {
+  border: 1px solid red;
+}

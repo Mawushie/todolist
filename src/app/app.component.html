@@ -1,47 +1,55 @@
 <div>
   <h1 class="text-center text-emerald-500 p-3 mb-4 text-xl">ToDo List!</h1>
 
-  @if(inputError){
-  <p class="flex justify-center text-red-600">Please enter a task</p>
-  }
-
-  <!--using a template reference variable to get the input element-->
-  <div class="flex flex-col justify-center gap-1 mb-10 md:flex-row">
+  <!--using a template driven forms-->
+  <form
+    class="flex flex-col justify-center gap-1 mb-10 md:flex-row"
+    #form="ngForm"
+  >
+    @if(task.invalid && task.touched){
+    <p class="flex justify-center text-red-600">Please enter a task</p>
+    }
     <input
+      ngModel
+      name="task"
       type="text"
       class="border rounded p-2 h-12"
       placeholder="Add task"
-      #taskInput
-      (keyup.enter)="addTask(taskInput)"
+      #task="ngModel"
+      required
+      [class.ng-invalid]="task.invalid && task.touched"
     />
 
     <div class="flex justify-between gap-3">
       <mat-form-field class="example-full-width bg-transparent">
         <mat-label>Choose a due date</mat-label>
         <input
+          ngModel
+          name="dueDate"
           matInput
           [matDatepicker]="picker"
           [min]="today"
-          (dateInput)="getDueDate($event)"
+          #dueDate="ngModel"
         />
+        <!-- (dateInput)="getDueDate($event)" -->
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker">
           <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
         </mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-      <div
+      <button
         class="border h-14 rounded-lg flex p-2 bg-gray-300 cursor-pointer justify-center items-center"
-        (click)="addTask(taskInput)"
+        (click)="addTask(form)"
       >
         <mat-icon> add</mat-icon>
-      </div>
+      </button>
     </div>
-  </div>
+  </form>
 
   <!--div to display all tasks-->
   <div>
-    @if (allTasks.length === 0 && completedTasks.length === 0) {
+    @if (pendingTasks.length === 0 && completedTasks.length === 0) {
     <p class="text-center text-gray-400">No tasks created yet</p>
     } @else if (pendingTasks.length === 0 && completedTasks.length !== 0) {
     <p class="text-center text-gray-400">No pending tasks</p>
