@@ -34,9 +34,26 @@ export class AppComponent {
   allTasks: Task[] = [];
   today = new Date(); //to allow for due dates from today
 
+  constructor(
+    //taskService is the variable name to inject the TaskService
+    private taskService: TaskService
+  ) {}
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.taskService.loadTasksFromStorage();
+    this.updateTasksList();
+  }
+
+  updateTasksList() {
+    this.pendingTasks = this.taskService.pendingTasks;
+    this.completedTasks = this.taskService.completedTasks;
+  }
+
   addTask(form: NgForm) {
     const { task, dueDate } = form.value;
-    console.log(dueDate);
+    // console.log(dueDate);
     const newTask: Task = {
       id: uuidv4(),
       task: task,
@@ -54,20 +71,17 @@ export class AppComponent {
 
   deleteTask(id: string) {
     this.taskService.deleteTaskService(id);
-    this.pendingTasks = this.taskService.getTasksService();
+    this.pendingTasks = this.taskService.pendingTasks;
   }
 
   completeTask(id: string) {
     this.taskService.completeTaskService(id);
-    this.pendingTasks = this.taskService.getTasksService();
+    this.pendingTasks = this.taskService.pendingTasks;
     this.completedTasks = this.taskService.completedTasks;
   }
 
-  constructor(
-    //taskService is the variable name to inject the TaskService
-    private taskService: TaskService
-  ) {
-    //assigning the getTasks() function from the service to the pendingTasks variable
-    this.pendingTasks = taskService.getTasksService();
+  clearCompleted() {
+    this.taskService.clearCompletedTasks();
+    this.updateTasksList();
   }
 }

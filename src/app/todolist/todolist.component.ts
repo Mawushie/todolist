@@ -4,6 +4,7 @@ import { Task } from '../interfaces/Task.model';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { HighlightOverduePipe } from '../pipes/highlight-overdue.pipe';
+import { TaskService } from '../services/task.service';
 @Component({
   selector: 'app-todolist',
   standalone: true,
@@ -29,6 +30,7 @@ export class TodolistComponent {
   //save editedTask
   saveEditedTask(task: Task) {
     task.isEdited = false;
+    this.taskService.updateAllTasks();
   }
 
   //delete task method
@@ -44,4 +46,6 @@ export class TodolistComponent {
     //passing the id to the parent(app) component
     this.completeTaskEvent.emit(id);
   }
+
+  constructor(private taskService: TaskService) {}
 }

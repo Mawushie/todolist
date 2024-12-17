@@ -1,32 +1,50 @@
+import { Task } from './../interfaces/Task.model';
 import { Injectable } from '@angular/core';
-import { Task } from '../interfaces/Task.model';
+// import { Task } from '../interfaces/Task.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
   //array of to contain all the pending tasks
-  pendingTasks: Task[] = [
-    {
-      id: '2',
-      due: 'Thu Dec 05 2024 14:10:38 GMT+0000 (Greenwich Mean Time)',
-      task: 'Meditate',
-      isEdited: false,
-    },
-  ];
+  pendingTasks: Task[] = [];
   completedTasks: Task[] = [];
-  allTasks: Task[] = [];
-  constructor() {}
+  allTasks: { pending: Task[]; completed: Task[] } = {
+    pending: [],
+    completed: [],
+  };
 
-  //function to get all of the pending Tasks
-  //returns an array of Task
-  getTasksService(): Task[] {
-    return this.pendingTasks;
+  constructor() {
+    this.loadTasksFromStorage();
+  }
+
+  //load tasks from local storage
+  loadTasksFromStorage() {
+    const savedTasks = localStorage.getItem('tasks');
+    // console.log(savedTasks);
+    if (savedTasks) {
+      const parsedTasks = JSON.parse(savedTasks);
+      this.pendingTasks = parsedTasks.pending;
+      this.completedTasks = parsedTasks.completed;
+    } else {
+      this.pendingTasks = [];
+      this.completedTasks = [];
+    }
+  }
+
+  //update all tasks array
+  updateAllTasks() {
+    this.allTasks = {
+      pending: this.pendingTasks,
+      completed: this.completedTasks,
+    };
+    localStorage.setItem('tasks', JSON.stringify(this.allTasks));
   }
 
   //add new tasks function
   addTaskService(newTask: Task) {
     this.pendingTasks.push(newTask);
+    this.updateAllTasks();
   }
 
   //edit task function
@@ -35,12 +53,12 @@ export class TaskService {
     if (currentEdit) {
       currentEdit.isEdited = true;
     }
-    // console.log(this.pendingTasks);
   }
 
   //delete task function
   deleteTaskService(id: string) {
     this.pendingTasks = this.pendingTasks.filter((task) => task.id !== id);
+    this.updateAllTasks();
   }
 
   //complete task funtion
@@ -50,9 +68,12 @@ export class TaskService {
     if (completedTask) {
       this.completedTasks.push(completedTask);
       this.deleteTaskService(id);
-      // console.log('Pending Tasks: ', this.pendingTasks);
-      this.allTasks = [...this.pendingTasks, ...this.completedTasks];
     }
-    // console.log('All Tasks: ', this.allTasks);
+  }
+
+  clearCompletedTasks() {
+    console.log('cleared');
+    this.completedTasks = [];
+    this.updateAllTasks();
   }
 }
